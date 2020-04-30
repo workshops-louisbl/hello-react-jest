@@ -16,6 +16,13 @@ function setup() {
     utils
   }
 }
+it("renders correctly", () => {
+  const { utils } = setup();
+
+  const fragment = utils.asFragment();
+
+  expect(fragment).toMatchSnapshot();
+});
 
 it("shows term correctly", () => {
   const {term, utils} = setup();
