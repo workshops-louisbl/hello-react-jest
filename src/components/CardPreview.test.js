@@ -2,6 +2,9 @@ import React from 'react';
 import { CardPreview } from "./CardPreview";
 import { render, fireEvent, act } from "@testing-library/react";
 
+import { destroyCard } from "../services/cardService";
+jest.mock("../services/cardService.js");
+
 function setup() {
   const term = "This is a test term";
   const definition = "This is the definition of a test term";
@@ -50,16 +53,26 @@ it("flips the card back to the term", () => {
   expect(utils.queryByText(definition)).not.toBeInTheDocument();
 })
 
-it("can delete the card", () => {
-  window.confirm = jest.fn();
-  const {term, definition, utils} = setup();
+it("can delete the card", async () => {
+  window.confirm = jest.fn(() => {
+    return true;
+  });
+  destroyCard.mockResolvedValue();
+
+  const idProps = "0";
+  const onRemoveProps = jest.fn();
+
+  const utils = render(<CardPreview id={idProps} onRemove={onRemoveProps} />);
 
   const deleteButton = utils.getByRole("button", {name: "delete"});
 
-  fireEvent.click(deleteButton);
+  await act(async () => {
+    fireEvent.click(deleteButton);
+  })
 
   expect(window.confirm).toBeCalled();
-
+  expect(destroyCard).toBeCalled();
+  expect(onRemoveProps).toBeCalledWith(idProps);
 })
 
 it("can edit the card", () => {
