@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="tile "
+  >
+    <h4
+      class="cardTerm"
+    >
+      This is a test term
+    </h4>
+    <div
+      class="cardButtons"
+    >
+      <button
+        class="tertiary"
+        type="button"
+      >
+        show back
+      </button>
+      <div>
+        <button
+          class="secondary"
+          type="button"
+        >
+          edit
+        </button>
+        <button
+          class="secondary danger"
+          type="button"
+        >
+          delete
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
